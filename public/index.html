@@ -3,344 +3,107 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ZenBot API — Docs</title>
+<title>ZenBot API — Documentación Interactiva</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --bg: #080810;
-    --surface: #0f0f1a;
-    --surface2: #13131f;
-    --border: #1a1a2e;
-    --accent: #7c3aed;
-    --accent2: #a855f7;
-    --accent3: #c084fc;
-    --green: #22c55e;
-    --yellow: #eab308;
-    --red: #ef4444;
-    --cyan: #22d3ee;
-    --text: #e2e8f0;
-    --muted: #4a5568;
-    --muted2: #64748b;
+    --bg: #080810; --surface: #0f0f1a; --surface2: #13131f; --border: #1a1a2e;
+    --accent: #7c3aed; --accent2: #a855f7; --accent3: #c084fc;
+    --green: #22c55e; --yellow: #eab308; --red: #ef4444; --cyan: #22d3ee;
+    --text: #e2e8f0; --muted: #4a5568; --muted2: #64748b;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; min-height: 100vh; display: flex; scroll-behavior: smooth; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    min-height: 100vh;
-    display: flex;
-  }
-
-  .sidebar {
-    position: fixed;
-    top: 0; left: 0;
-    width: 240px;
-    height: 100vh;
-    background: var(--surface);
-    border-right: 1px solid var(--border);
-    overflow-y: auto;
-    z-index: 50;
-    padding: 1.5rem 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .sidebar-logo {
-    padding: 0 1.5rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 1rem;
-  }
-
-  .sidebar-logo .name {
-    font-family: 'Space Mono', monospace;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--accent3);
-  }
-
-  .sidebar-logo .version {
-    font-family: 'Space Mono', monospace;
-    font-size: .65rem;
-    color: var(--muted2);
-    margin-top: .2rem;
-  }
-
-  .sidebar-status {
-    display: flex;
-    align-items: center;
-    gap: .4rem;
-    margin-top: .5rem;
-    font-family: 'Space Mono', monospace;
-    font-size: .65rem;
-    color: var(--green);
-  }
-
-  .dot {
-    width: 5px; height: 5px;
-    background: var(--green);
-    border-radius: 50%;
-    animation: blink 2s infinite;
-  }
-
+  /* Sidebar */
+  .sidebar { position: fixed; top: 0; left: 0; width: 260px; height: 100vh; background: var(--surface); border-right: 1px solid var(--border); overflow-y: auto; z-index: 50; padding: 1.5rem 0; display: flex; flex-direction: column; }
+  .sidebar-logo { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+  .sidebar-logo .name { font-family: 'Space Mono', monospace; font-size: 1.2rem; font-weight: 700; color: var(--accent3); }
+  .sidebar-logo .version { font-family: 'Space Mono', monospace; font-size: .7rem; color: var(--muted2); margin-top: .2rem; }
+  .sidebar-status { display: flex; align-items: center; gap: .4rem; margin-top: .5rem; font-family: 'Space Mono', monospace; font-size: .7rem; color: var(--green); }
+  .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: blink 2s infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
-
+  
   .sidebar-section { padding: 0 1rem; margin-bottom: .25rem; }
-
-  .sidebar-section-label {
-    font-family: 'Space Mono', monospace;
-    font-size: .6rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    padding: .75rem .5rem .4rem;
-  }
-
-  .sidebar-link {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    padding: .4rem .5rem;
-    border-radius: 6px;
-    font-size: .82rem;
-    font-weight: 600;
-    color: var(--muted2);
-    text-decoration: none;
-    transition: all .15s;
-  }
-
+  .sidebar-section-label { font-family: 'Space Mono', monospace; font-size: .65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; padding: .75rem .5rem .4rem; }
+  .sidebar-link { display: flex; align-items: center; gap: .5rem; padding: .5rem; border-radius: 6px; font-size: .85rem; font-weight: 600; color: var(--muted2); text-decoration: none; transition: all .15s; }
   .sidebar-link:hover { background: rgba(124,58,237,.08); color: var(--accent3); }
+  .sidebar-link .icon { font-size: 1rem; width: 20px; text-align: center; }
 
-  .sidebar-link .icon { font-size: .9rem; width: 18px; text-align: center; }
+  /* Main Content */
+  .main { margin-left: 260px; flex: 1; min-height: 100vh; }
+  .topbar { position: sticky; top: 0; z-index: 40; background: rgba(8,8,16,.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: .8rem 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;}
+  .api-key-config { display: flex; align-items: center; gap: .5rem; background: var(--surface2); border: 1px solid var(--border); padding: .3rem .4rem .3rem 1rem; border-radius: 8px; flex: 1; max-width: 400px;}
+  .api-key-config span { font-family: 'Space Mono', monospace; font-size: .75rem; color: var(--muted2); }
+  .api-key-config input { flex: 1; background: transparent; border: none; color: var(--accent3); font-family: 'Space Mono', monospace; font-size: .8rem; outline: none; width: 100%;}
+  .api-key-config button { background: var(--accent); color: white; border: none; padding: .3rem .8rem; border-radius: 4px; font-family: 'Syne', sans-serif; font-size: .75rem; font-weight: 700; cursor: pointer; transition: .2s;}
+  .api-key-config button:hover { background: var(--accent2); }
 
-  .sidebar-link .count {
-    margin-left: auto;
-    font-family: 'Space Mono', monospace;
-    font-size: .6rem;
-    color: var(--muted);
-    background: var(--surface2);
-    padding: .1rem .35rem;
-    border-radius: 3px;
-  }
+  .content { padding: 3rem 3rem 6rem; max-width: 900px; }
+  .hero { margin-bottom: 3rem; }
+  .hero h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -2px; line-height: 1; margin-bottom: 1rem; background: linear-gradient(135deg, #fff 50%, var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero p { font-size: 1.05rem; color: var(--muted2); font-weight: 400; line-height: 1.6; max-width: 600px;}
 
-  .main { margin-left: 240px; flex: 1; min-height: 100vh; }
+  /* Key Generator & Docs */
+  .card-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 3rem; }
+  .card-title { font-family: 'Space Mono', monospace; font-size: .9rem; color: var(--accent3); margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; border-bottom: 1px solid var(--border); padding-bottom: .8rem;}
+  
+  .generator-form { display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap;}
+  .input-group { display: flex; flex-direction: column; gap: .4rem; flex: 1; min-width: 200px;}
+  .input-group label { font-family: 'Space Mono', monospace; font-size: .7rem; color: var(--muted2); }
+  .input-group input { background: var(--surface2); border: 1px solid var(--border); padding: .6rem 1rem; border-radius: 6px; color: white; font-family: 'Space Mono', monospace; outline: none; transition: .2s;}
+  .input-group input:focus { border-color: var(--accent); }
+  .btn-primary { background: var(--accent); color: white; border: none; padding: .6rem 1.2rem; border-radius: 6px; font-family: 'Syne', sans-serif; font-weight: 700; cursor: pointer; height: 38px; transition: .2s;}
+  .btn-primary:hover { background: var(--accent2); }
+  
+  .code-block { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-top: 1rem; overflow-x: auto;}
+  .code-block pre { font-family: 'Space Mono', monospace; font-size: .8rem; color: #a5f3fc; }
+  .code-block .comment { color: var(--muted); }
 
-  .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 40;
-    background: rgba(8,8,16,.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: .9rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .topbar-title {
-    font-family: 'Space Mono', monospace;
-    font-size: .8rem;
-    color: var(--muted2);
-  }
-
-  .topbar-url {
-    font-family: 'Space Mono', monospace;
-    font-size: .75rem;
-    color: var(--accent2);
-    background: rgba(124,58,237,.08);
-    border: 1px solid rgba(124,58,237,.2);
-    padding: .3rem .8rem;
-    border-radius: 6px;
-  }
-
-  .content { padding: 3rem 2.5rem 6rem; max-width: 820px; }
-
-  .hero { margin-bottom: 4rem; }
-
-  .hero-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: .65rem;
-    color: var(--accent2);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: .75rem;
-  }
-
-  .hero h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    letter-spacing: -2px;
-    line-height: 1;
-    margin-bottom: .75rem;
-    background: linear-gradient(135deg, #fff 50%, var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero p {
-    font-size: 1rem;
-    color: var(--muted2);
-    font-weight: 400;
-    max-width: 480px;
-    line-height: 1.6;
-  }
-
-  .auth-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 4rem;
-  }
-
-  .card-title {
-    font-family: 'Space Mono', monospace;
-    font-size: .8rem;
-    color: var(--accent3);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-  }
-
-  .card-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-  .auth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-
-  .auth-item {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1rem;
-  }
-
-  .auth-item .method-line { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; }
-
-  .badge-method {
-    font-family: 'Space Mono', monospace;
-    font-size: .6rem;
-    font-weight: 700;
-    padding: .15rem .4rem;
-    border-radius: 3px;
-  }
-
-  .badge-post { background: rgba(234,179,8,.1); color: var(--yellow); border: 1px solid rgba(234,179,8,.2); }
-  .badge-get  { background: rgba(34,197,94,.1);  color: var(--green);  border: 1px solid rgba(34,197,94,.2); }
-  .badge-del  { background: rgba(239,68,68,.1);  color: var(--red);    border: 1px solid rgba(239,68,68,.2); }
-
-  .auth-item .path { font-family: 'Space Mono', monospace; font-size: .75rem; color: var(--text); }
-  .auth-item .desc { font-size: .8rem; color: var(--muted2); font-weight: 400; margin-top: .25rem; }
-
-  .header-note {
-    margin-top: 1rem;
-    padding: .75rem 1rem;
-    background: rgba(124,58,237,.06);
-    border: 1px solid rgba(124,58,237,.15);
-    border-radius: 8px;
-    font-family: 'Space Mono', monospace;
-    font-size: .75rem;
-    color: var(--muted2);
-  }
-
-  .header-note code {
-    color: var(--accent3);
-    background: rgba(124,58,237,.1);
-    padding: .1rem .4rem;
-    border-radius: 3px;
-  }
-
+  /* Endpoints */
   .section { margin-bottom: 4rem; scroll-margin-top: 80px; }
+  .section-head { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.5rem; padding-bottom: .75rem; border-bottom: 1px solid var(--border); }
+  .section-icon { font-size: 1.3rem; }
+  .section-name { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
 
-  .section-head {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: .75rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .section-icon { font-size: 1.1rem; }
-  .section-name { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.5px; }
-
-  .section-badge {
-    font-family: 'Space Mono', monospace;
-    font-size: .65rem;
-    color: var(--muted2);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: .15rem .5rem;
-    border-radius: 4px;
-    margin-left: auto;
-  }
-
-  .ep-list { display: flex; flex-direction: column; gap: .4rem; }
-
-  .ep {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: border-color .2s;
-  }
-
+  .ep-list { display: flex; flex-direction: column; gap: .6rem; }
+  .ep { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: border-color .2s; }
   .ep:hover { border-color: rgba(124,58,237,.35); }
-
-  .ep-head {
-    display: flex;
-    align-items: center;
-    gap: .65rem;
-    padding: .75rem 1rem;
-  }
-
-  .ep-path { font-family: 'Space Mono', monospace; font-size: .78rem; color: var(--text); flex: 1; }
-  .ep-desc { font-size: .78rem; color: var(--muted2); font-weight: 400; }
-
-  .ep-params {
-    border-top: 1px solid var(--border);
-    padding: .6rem 1rem .75rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: .4rem;
-  }
-
-  .param-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: .3rem;
-    font-family: 'Space Mono', monospace;
-    font-size: .65rem;
-    padding: .2rem .5rem;
-    border-radius: 4px;
-    border: 1px solid var(--border);
-    background: var(--surface2);
-    color: var(--muted2);
-  }
-
+  
+  .ep-head { display: flex; align-items: center; gap: .75rem; padding: .85rem 1rem; cursor: pointer; user-select: none;}
+  .badge-method { font-family: 'Space Mono', monospace; font-size: .65rem; font-weight: 700; padding: .2rem .5rem; border-radius: 4px; }
+  .badge-get  { background: rgba(34,197,94,.1);  color: var(--green);  border: 1px solid rgba(34,197,94,.2); }
+  .ep-path { font-family: 'Space Mono', monospace; font-size: .85rem; color: var(--text); flex: 1; }
+  .ep-desc { font-size: .8rem; color: var(--muted2); font-weight: 400; }
+  
+  .ep-params { border-top: 1px solid var(--border); padding: .6rem 1rem; display: flex; flex-wrap: wrap; gap: .5rem; background: rgba(19, 19, 31, 0.4);}
+  .param-chip { display: inline-flex; align-items: center; gap: .3rem; font-family: 'Space Mono', monospace; font-size: .7rem; padding: .2rem .6rem; border-radius: 4px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted2); }
   .param-chip .pname { color: #a5f3fc; }
-  .param-chip .req { color: var(--red); font-size: .55rem; }
-  .param-chip .opt { color: var(--muted); font-size: .55rem; }
+  .param-chip .req { color: var(--red); font-size: .6rem; }
+  .param-chip .opt { color: var(--muted); font-size: .6rem; }
 
-  footer {
-    margin-left: 240px;
-    padding: 1.5rem 2.5rem;
-    border-top: 1px solid var(--border);
-    font-family: 'Space Mono', monospace;
-    font-size: .7rem;
-    color: var(--muted);
-  }
+  /* Interactive Playground */
+  .playground { border-top: 1px dashed var(--border); background: var(--surface2); padding: 1.5rem; display: none; }
+  .pg-form { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end; margin-bottom: 1rem;}
+  .pg-input-wrapper { display: flex; flex-direction: column; gap: .3rem; flex: 1; min-width: 250px;}
+  .pg-input-wrapper label { font-family: 'Space Mono', monospace; font-size: .7rem; color: #a5f3fc; }
+  .pg-input { background: var(--surface); border: 1px solid var(--border); padding: .6rem; border-radius: 6px; color: white; font-family: 'Space Mono', monospace; font-size: .8rem; outline: none; width: 100%;}
+  .pg-input:focus { border-color: var(--accent3); }
+  .pg-btn { background: var(--text); color: var(--bg); border: none; padding: .6rem 1.2rem; border-radius: 6px; font-family: 'Syne', sans-serif; font-weight: 800; cursor: pointer; height: 38px; transition: .2s; margin-left: auto;}
+  .pg-btn:hover { background: white; transform: translateY(-1px); }
+  .pg-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  
+  .pg-res { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; display: none;}
+  .pg-res-head { background: var(--border); padding: .4rem 1rem; font-family: 'Space Mono', monospace; font-size: .7rem; color: var(--muted2); display: flex; justify-content: space-between;}
+  .pg-res-body { padding: 1rem; font-family: 'Space Mono', monospace; font-size: .75rem; color: var(--green); overflow-x: auto; max-height: 400px; overflow-y: auto;}
+  .pg-res-body.error { color: var(--red); }
 
-  footer a { color: var(--accent2); text-decoration: none; }
-
-  @media (max-width: 700px) {
+  @media (max-width: 800px) {
     .sidebar { display: none; }
     .main { margin-left: 0; }
-    footer { margin-left: 0; }
-    .auth-grid { grid-template-columns: 1fr; }
-    .content { padding: 2rem 1.25rem 4rem; }
+    .content { padding: 2rem 1.5rem; }
+    .generator-form { flex-direction: column; align-items: stretch; }
   }
 </style>
 </head>
@@ -349,299 +112,318 @@
 <aside class="sidebar">
   <div class="sidebar-logo">
     <div class="name">ZenBot API</div>
-    <div class="version">v0.0.1 · REST</div>
+    <div class="version">v1.0.0 · REST</div>
     <div class="sidebar-status"><div class="dot"></div> Online</div>
   </div>
-
   <div class="sidebar-section">
-    <div class="sidebar-section-label">General</div>
+    <div class="sidebar-section-label">Inicio</div>
     <a class="sidebar-link" href="#auth"><span class="icon">🔑</span> Autenticación</a>
-    <a class="sidebar-link" href="#ping"><span class="icon">📡</span> Ping</a>
+    <a class="sidebar-link" href="#generador"><span class="icon">✨</span> Obtener API Key</a>
   </div>
-
   <div class="sidebar-section">
-    <div class="sidebar-section-label">Scrapers</div>
-    <a class="sidebar-link" href="#yt"><span class="icon">▶️</span> YouTube <span class="count">4</span></a>
-    <a class="sidebar-link" href="#tiktok"><span class="icon">🎵</span> TikTok <span class="count">4</span></a>
-    <a class="sidebar-link" href="#instagram"><span class="icon">📸</span> Instagram <span class="count">4</span></a>
-    <a class="sidebar-link" href="#otros-social"><span class="icon">🌐</span> Otros sociales <span class="count">4</span></a>
-    <a class="sidebar-link" href="#musica"><span class="icon">🎧</span> Música <span class="count">4</span></a>
-    <a class="sidebar-link" href="#archivos"><span class="icon">📁</span> Archivos <span class="count">5</span></a>
-    <a class="sidebar-link" href="#apps"><span class="icon">📱</span> Apps & APKs <span class="count">4</span></a>
-    <a class="sidebar-link" href="#github"><span class="icon">💻</span> GitHub <span class="count">4</span></a>
-  </div>
-
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">Search</div>
-    <a class="sidebar-link" href="#imagenes"><span class="icon">🖼️</span> Imágenes <span class="count">5</span></a>
-    <a class="sidebar-link" href="#gifs"><span class="icon">🎞️</span> GIFs <span class="count">3</span></a>
-    <a class="sidebar-link" href="#deezer-search"><span class="icon">🎶</span> Deezer <span class="count">5</span></a>
-    <a class="sidebar-link" href="#web-search"><span class="icon">🔍</span> Web <span class="count">2</span></a>
-  </div>
-
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">Tools</div>
-    <a class="sidebar-link" href="#utilidades"><span class="icon">🛠️</span> Utilidades <span class="count">7</span></a>
-    <a class="sidebar-link" href="#media-tools"><span class="icon">🎨</span> Media <span class="count">3</span></a>
-    <a class="sidebar-link" href="#noticias"><span class="icon">📰</span> Noticias <span class="count">2</span></a>
-    <a class="sidebar-link" href="#urls"><span class="icon">🔗</span> URLs <span class="count">3</span></a>
-  </div>
-
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">NSFW</div>
-    <a class="sidebar-link" href="#nsfw-search"><span class="icon">🔞</span> Search & DL <span class="count">10</span></a>
+    <div class="sidebar-section-label">Endpoints</div>
+    <a class="sidebar-link" href="#yt"><span class="icon">▶️</span> YouTube</a>
+    <a class="sidebar-link" href="#tiktok"><span class="icon">🎵</span> TikTok</a>
+    <a class="sidebar-link" href="#instagram"><span class="icon">📸</span> Instagram</a>
+    <a class="sidebar-link" href="#search"><span class="icon">🔍</span> Buscadores</a>
+    <a class="sidebar-link" href="#tools"><span class="icon">🛠️</span> Herramientas</a>
+    <a class="sidebar-link" href="#nsfw"><span class="icon">🔞</span> NSFW</a>
   </div>
 </aside>
 
 <div class="main">
   <div class="topbar">
-    <span class="topbar-title">Documentación · ZenBot API</span>
-    <span class="topbar-url">https://zenbot-apii.onrender.com</span>
+    <div class="api-key-config">
+      <span>Key:</span>
+      <input type="text" id="global-api-key" placeholder="Pega tu API Key aquí para probar..." />
+      <button onclick="saveApiKey()">Guardar</button>
+    </div>
   </div>
 
   <div class="content">
-
     <div class="hero">
-      <div class="hero-tag">// REST API</div>
+      <div style="font-family: 'Space Mono'; color: var(--accent2); margin-bottom: .5rem;">// BIENVENIDO A</div>
       <h1>ZenBot API</h1>
-      <p>Scrapers, descargadores y herramientas para bots de WhatsApp. Autenticación por API key en cada request.</p>
+      <p>La API definitiva para bots de WhatsApp. Scrapers de alta velocidad, sin marcas de agua y descarga directa. <br><b>Toca cualquier endpoint abajo para probarlo en vivo.</b></p>
     </div>
 
-    <!-- Auth -->
-    <div class="section" id="auth">
-      <div class="section-head">
-        <span class="section-icon">🔑</span>
-        <span class="section-name">Autenticación</span>
-      </div>
-      <div class="auth-card">
-        <div class="card-title">Endpoints de administración</div>
-        <div class="auth-grid">
-          <div class="auth-item">
-            <div class="method-line"><span class="badge-method badge-post">POST</span><span class="path">/auth/register</span></div>
-            <div class="desc">Crear nueva API key</div>
-          </div>
-          <div class="auth-item">
-            <div class="method-line"><span class="badge-method badge-del">DELETE</span><span class="path">/auth/revoke</span></div>
-            <div class="desc">Revocar una API key</div>
-          </div>
-          <div class="auth-item">
-            <div class="method-line"><span class="badge-method badge-get">GET</span><span class="path">/auth/keys</span></div>
-            <div class="desc">Listar todas las keys</div>
-          </div>
+    <!-- Generador de API Key -->
+    <div class="card-panel" id="generador">
+      <div class="card-title">✨ Generar API Key (Usuarios)</div>
+      <p style="font-size: .85rem; color: var(--muted2); margin-bottom: 1rem;">Crea un usuario para obtener tu API Key personal. <br><i>*Nota: Requiere la clave de administrador para registrar nuevos usuarios.</i></p>
+      <div class="generator-form">
+        <div class="input-group">
+          <label>Contraseña Admin</label>
+          <input type="password" id="reg-admin" placeholder="Ej: admin123" value="admin123">
         </div>
-        <div class="header-note">Todas las rutas requieren el header <code>x-api-key: zb_xxxx</code></div>
+        <div class="input-group">
+          <label>Nombre del Usuario/Bot</label>
+          <input type="text" id="reg-name" placeholder="Ej: GokuBot">
+        </div>
+        <button class="btn-primary" onclick="generateKey()">Generar Key</button>
+      </div>
+      <div id="reg-result" class="code-block" style="display: none;"></div>
+    </div>
+
+    <!-- Instrucciones -->
+    <div class="card-panel" id="auth">
+      <div class="card-title">🔑 ¿Cómo usar tu API Key?</div>
+      <p style="font-size: .85rem; color: var(--muted2); margin-bottom: 1rem;">Para hacer peticiones a la API desde tu código, debes incluir tu API Key en los <b>Headers</b> de la petición bajo el nombre <code>x-api-key</code>.</p>
+      
+      <div class="code-block">
+<pre><span class="comment">// Ejemplo usando Axios (Node.js / Baileys)</span>
+import axios from 'axios';
+
+const response = await axios.get('https://api.axelmodz.xyz/scrapers/ytinfo?url=...', {
+  headers: {
+    'x-api-key': 'zb_TU_API_KEY_AQUI'
+  }
+});
+
+console.log(response.data.result);</pre>
+      </div>
+
+      <div class="code-block">
+<pre><span class="comment">// Ejemplo usando Fetch (JavaScript Vanilla)</span>
+const res = await fetch('https://api.axelmodz.xyz/search/pinterest?q=gatos', {
+  method: 'GET',
+  headers: { 'x-api-key': 'zb_TU_API_KEY_AQUI' }
+});
+const data = await res.json();</pre>
       </div>
     </div>
 
-    <!-- Ping -->
-    <div class="section" id="ping">
-      <div class="section-head">
-        <span class="section-icon">📡</span>
-        <span class="section-name">Ping</span>
-      </div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/ping</span><span class="ep-desc">Verificar que la API está activa — no requiere key</span></div></div>
-      </div>
-    </div>
-
-    <!-- YouTube -->
-    <div class="section" id="yt">
-      <div class="section-head"><span class="section-icon">▶️</span><span class="section-name">YouTube</span><span class="section-badge">4 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/ytinfo</span><span class="ep-desc">Info del video</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/ytdownload</span><span class="ep-desc">Descargar audio o video</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span><span class="param-chip"><span class="pname">type</span><span class="opt">opt</span> audio | video</span><span class="param-chip"><span class="pname">quality</span><span class="opt">opt</span> 360 | 480 | 720</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/ytsearch</span><span class="ep-desc">Buscar videos</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 5</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/ytsize</span><span class="ep-desc">Tamaño del archivo</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-      </div>
-    </div>
-
-    <!-- TikTok -->
-    <div class="section" id="tiktok">
-      <div class="section-head"><span class="section-icon">🎵</span><span class="section-name">TikTok</span><span class="section-badge">4 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/tiktok</span><span class="ep-desc">Descargar sin marca de agua</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/snaptik</span><span class="ep-desc">Descargar via SnapTik</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/tiktokinfo</span><span class="ep-desc">Info del video</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/tiktoksearch</span><span class="ep-desc">Buscar videos</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 5</span></div></div>
-      </div>
-    </div>
-
-    <!-- Instagram -->
-    <div class="section" id="instagram">
-      <div class="section-head"><span class="section-icon">📸</span><span class="section-name">Instagram</span><span class="section-badge">4 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/ig</span><span class="ep-desc">Descargar post</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/igreel</span><span class="ep-desc">Descargar reel</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/igstalk</span><span class="ep-desc">Info de perfil</span></div><div class="ep-params"><span class="param-chip"><span class="pname">user</span><span class="req">required</span> username sin @</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/igstories</span><span class="ep-desc">Historias de un perfil</span></div><div class="ep-params"><span class="param-chip"><span class="pname">user</span><span class="req">required</span></span></div></div>
-      </div>
-    </div>
-
-    <!-- Otros sociales -->
-    <div class="section" id="otros-social">
-      <div class="section-head"><span class="section-icon">🌐</span><span class="section-name">Otros sociales</span><span class="section-badge">4 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/facebook</span><span class="ep-desc">Descargar video de Facebook</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/tweet</span><span class="ep-desc">Info de tweet</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/tweetdl</span><span class="ep-desc">Descargar video de tweet</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/threads</span><span class="ep-desc">Descargar video de Threads</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-      </div>
-    </div>
-
-    <!-- Música -->
-    <div class="section" id="musica">
-      <div class="section-head"><span class="section-icon">🎧</span><span class="section-name">Música</span><span class="section-badge">4 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/spoti</span><span class="ep-desc">Descargar track de Spotify</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/deezersearch</span><span class="ep-desc">Buscar en Deezer</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 10</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/deezertrack</span><span class="ep-desc">Descargar track de Deezer</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">format</span><span class="opt">opt</span> mp3</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/ddownr</span><span class="ep-desc">Descargar video genérico</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span><span class="param-chip"><span class="pname">format</span><span class="opt">opt</span> 720</span></div></div>
-      </div>
-    </div>
-
-    <!-- Archivos -->
-    <div class="section" id="archivos">
-      <div class="section-head"><span class="section-icon">📁</span><span class="section-name">Archivos</span><span class="section-badge">5 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/mediafire</span><span class="ep-desc">Info de archivo en MediaFire</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/gdrive</span><span class="ep-desc">Info de archivo en Google Drive</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/gdrivedl</span><span class="ep-desc">Descargar de Google Drive</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/booksearch</span><span class="ep-desc">Buscar libros</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 10</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/bookinfo</span><span class="ep-desc">Info de libro</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-      </div>
-    </div>
-
-    <!-- Apps -->
-    <div class="section" id="apps">
-      <div class="section-head"><span class="section-icon">📱</span><span class="section-name">Apps & APKs</span><span class="section-badge">4 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/apksearch</span><span class="ep-desc">Buscar APKs</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 5</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/apkinfo</span><span class="ep-desc">Info de APK</span></div><div class="ep-params"><span class="param-chip"><span class="pname">pkg</span><span class="req">required</span> package name</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/aptoide</span><span class="ep-desc">Buscar en Aptoide</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 10</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/aptoideinfo</span><span class="ep-desc">Info de app en Aptoide</span></div><div class="ep-params"><span class="param-chip"><span class="pname">pkg</span><span class="req">required</span></span></div></div>
-      </div>
-    </div>
-
-    <!-- GitHub -->
-    <div class="section" id="github">
-      <div class="section-head"><span class="section-icon">💻</span><span class="section-name">GitHub</span><span class="section-badge">4 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/github</span><span class="ep-desc">Info de repositorio</span></div><div class="ep-params"><span class="param-chip"><span class="pname">repo</span><span class="req">required</span> usuario/repo</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/githubrelease</span><span class="ep-desc">Último release</span></div><div class="ep-params"><span class="param-chip"><span class="pname">repo</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/githubcontents</span><span class="ep-desc">Contenido de directorio</span></div><div class="ep-params"><span class="param-chip"><span class="pname">repo</span><span class="req">required</span></span><span class="param-chip"><span class="pname">path</span><span class="opt">opt</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/scrapers/githubsearch</span><span class="ep-desc">Buscar en GitHub</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">type</span><span class="opt">opt</span> repositories</span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 5</span></div></div>
-      </div>
-    </div>
-
-    <!-- Imágenes -->
-    <div class="section" id="imagenes">
-      <div class="section-head"><span class="section-icon">🖼️</span><span class="section-name">Imágenes</span><span class="section-badge">5 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/pinterest</span><span class="ep-desc">Buscar imágenes en Pinterest</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 10</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/pinimg</span><span class="ep-desc">Info de imagen de Pinterest</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/pinvid</span><span class="ep-desc">Buscar videos en Pinterest</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 5</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/anime</span><span class="ep-desc">Buscar imágenes de anime</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 5</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/wallpaper</span><span class="ep-desc">Buscar wallpapers</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 10</span></div></div>
-      </div>
-    </div>
-
-    <!-- GIFs -->
-    <div class="section" id="gifs">
-      <div class="section-head"><span class="section-icon">🎞️</span><span class="section-name">GIFs</span><span class="section-badge">3 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/gif</span><span class="ep-desc">Buscar GIFs en Giphy</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 5</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/gifnext</span><span class="ep-desc">Siguiente GIF de la búsqueda</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/gifbuffer</span><span class="ep-desc">GIF como buffer</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span></div></div>
-      </div>
-    </div>
-
-    <!-- Deezer Search -->
-    <div class="section" id="deezer-search">
-      <div class="section-head"><span class="section-icon">🎶</span><span class="section-name">Deezer Search</span><span class="section-badge">5 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/deezerfind</span><span class="ep-desc">Buscar canciones</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 10</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/deezeralbums</span><span class="ep-desc">Buscar álbumes</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/deezerartists</span><span class="ep-desc">Buscar artistas</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/deezeralbumtracks</span><span class="ep-desc">Canciones de un álbum</span></div><div class="ep-params"><span class="param-chip"><span class="pname">id</span><span class="req">required</span> ID del álbum</span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 50</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/deezertoptracks</span><span class="ep-desc">Top tracks de un artista</span></div><div class="ep-params"><span class="param-chip"><span class="pname">id</span><span class="req">required</span> ID del artista</span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 10</span></div></div>
-      </div>
-    </div>
-
-    <!-- Web -->
-    <div class="section" id="web-search">
-      <div class="section-head"><span class="section-icon">🔍</span><span class="section-name">Web</span><span class="section-badge">2 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/google</span><span class="ep-desc">Buscar en Google</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 5</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/search/sticker</span><span class="ep-desc">Buscar stickers</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 10</span></div></div>
-      </div>
-    </div>
-
-    <!-- Utilidades -->
-    <div class="section" id="utilidades">
-      <div class="section-head"><span class="section-icon">🛠️</span><span class="section-name">Utilidades</span><span class="section-badge">7 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/translate</span><span class="ep-desc">Traducir texto</span></div><div class="ep-params"><span class="param-chip"><span class="pname">text</span><span class="req">required</span></span><span class="param-chip"><span class="pname">to</span><span class="opt">opt</span> default es</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/langs</span><span class="ep-desc">Idiomas disponibles para traducción</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/weather</span><span class="ep-desc">Clima de una ciudad</span></div><div class="ep-params"><span class="param-chip"><span class="pname">city</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/qr</span><span class="ep-desc">Generar código QR</span></div><div class="ep-params"><span class="param-chip"><span class="pname">text</span><span class="req">required</span></span><span class="param-chip"><span class="pname">size</span><span class="opt">opt</span> default 300</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/qrread</span><span class="ep-desc">Leer código QR de imagen</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/lyrics</span><span class="ep-desc">Letra de canción</span></div><div class="ep-params"><span class="param-chip"><span class="pname">artist</span><span class="req">required</span></span><span class="param-chip"><span class="pname">title</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/lyricssearch</span><span class="ep-desc">Buscar letra por nombre</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span></div></div>
-      </div>
-    </div>
-
-    <!-- Media -->
-    <div class="section" id="media-tools">
-      <div class="section-head"><span class="section-icon">🎨</span><span class="section-name">Media</span><span class="section-badge">3 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/screenshot</span><span class="ep-desc">Captura de pantalla de una web</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span><span class="param-chip"><span class="pname">w</span><span class="opt">opt</span> default 1280</span><span class="param-chip"><span class="pname">h</span><span class="opt">opt</span> default 720</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/attp</span><span class="ep-desc">Sticker de texto animado</span></div><div class="ep-params"><span class="param-chip"><span class="pname">text</span><span class="req">required</span></span><span class="param-chip"><span class="pname">scale</span><span class="opt">opt</span> default 5</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/upload</span><span class="ep-desc">Subir archivo desde URL</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span><span class="param-chip"><span class="pname">filename</span><span class="opt">opt</span></span></div></div>
-      </div>
-    </div>
-
-    <!-- Noticias -->
-    <div class="section" id="noticias">
-      <div class="section-head"><span class="section-icon">📰</span><span class="section-name">Noticias</span><span class="section-badge">2 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/news</span><span class="ep-desc">Noticias recientes</span></div><div class="ep-params"><span class="param-chip"><span class="pname">lang</span><span class="opt">opt</span> default es</span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 5</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/newscategories</span><span class="ep-desc">Categorías disponibles</span></div></div>
-      </div>
-    </div>
-
-    <!-- URLs -->
-    <div class="section" id="urls">
-      <div class="section-head"><span class="section-icon">🔗</span><span class="section-name">URLs</span><span class="section-badge">3 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/shorten</span><span class="ep-desc">Acortar URL</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/expand</span><span class="ep-desc">Expandir URL acortada</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/tools/ttstalk</span><span class="ep-desc">Info de perfil de TikTok</span></div><div class="ep-params"><span class="param-chip"><span class="pname">user</span><span class="req">required</span></span></div></div>
-      </div>
-    </div>
-
-    <!-- NSFW -->
-    <div class="section" id="nsfw-search">
-      <div class="section-head"><span class="section-icon">🔞</span><span class="section-name">NSFW</span><span class="section-badge">10 endpoints</span></div>
-      <div class="ep-list">
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/nsfw/xnxx</span><span class="ep-desc">Buscar en XNXX</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 10</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/nsfw/xnxxdl</span><span class="ep-desc">Descargar de XNXX</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/nsfw/ph</span><span class="ep-desc">Buscar en PornHub</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 10</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/nsfw/phdl</span><span class="ep-desc">Descargar de PornHub</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/nsfw/phdlbuffer</span><span class="ep-desc">PornHub como buffer</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span><span class="param-chip"><span class="pname">quality</span><span class="opt">opt</span> default 720</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/nsfw/xvideos</span><span class="ep-desc">Buscar en XVideos</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 10</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/nsfw/xvideosdl</span><span class="ep-desc">Descargar de XVideos</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/nsfw/xhamster</span><span class="ep-desc">Buscar en XHamster</span></div><div class="ep-params"><span class="param-chip"><span class="pname">q</span><span class="req">required</span></span><span class="param-chip"><span class="pname">limit</span><span class="opt">opt</span> default 10</span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/nsfw/xhamsterdl</span><span class="ep-desc">Descargar de XHamster</span></div><div class="ep-params"><span class="param-chip"><span class="pname">url</span><span class="req">required</span></span></div></div>
-        <div class="ep"><div class="ep-head"><span class="badge-method badge-get">GET</span><span class="ep-path">/nsfw/rule34</span><span class="ep-desc">Imágenes aleatorias de Rule34</span></div><div class="ep-params"><span class="param-chip"><span class="pname">tags</span><span class="opt">opt</span> separados por espacio</span></div></div>
-      </div>
+    <!-- Contenedor dinámico de Endpoints -->
+    <div id="endpoints-container">
+      <!-- Los endpoints se renderizan aquí vía JS -->
     </div>
 
   </div>
 </div>
 
-<footer>
-  Hecho por <a href="https://github.com/AxelDev09">axel-dev09</a>
-</footer>
+<script>
+// Base URL de la API (detecta automáticamente si es localhost o dominio)
+const API_BASE = window.location.origin;
 
+// Definición de todos los endpoints
+const apiDocs = [
+  {
+    id: 'yt', icon: '▶️', title: 'YouTube',
+    endpoints: [
+      { path: '/scrapers/ytinfo', desc: 'Información detallada del video', params: [{ name: 'url', req: true }] },
+      { path: '/scrapers/ytdownload', desc: 'Descargar audio/video (MP3/MP4)', params: [{ name: 'url', req: true }, { name: 'type', req: false, def: 'mp3' }, { name: 'quality', req: false, def: '128k' }] },
+      { path: '/scrapers/ytsearch', desc: 'Buscar videos en YouTube', params: [{ name: 'q', req: true }, { name: 'limit', req: false, def: '5' }] }
+    ]
+  },
+  {
+    id: 'tiktok', icon: '🎵', title: 'TikTok & Reels',
+    endpoints: [
+      { path: '/scrapers/tiktok', desc: 'Descargar TikTok sin marca de agua', params: [{ name: 'url', req: true }] },
+      { path: '/scrapers/snaptik', desc: 'Descargar usando SnapTik', params: [{ name: 'url', req: true }] },
+      { path: '/scrapers/tiktoksearch', desc: 'Buscar videos en TikTok', params: [{ name: 'q', req: true }, { name: 'limit', req: false, def: '5' }] },
+      { path: '/scrapers/ig', desc: 'Descargar Post/Video de Instagram', params: [{ name: 'url', req: true }] },
+      { path: '/scrapers/igreel', desc: 'Descargar Reel de Instagram', params: [{ name: 'url', req: true }] },
+      { path: '/scrapers/fb', desc: 'Descargar Video de Facebook', params: [{ name: 'url', req: true }] }
+    ]
+  },
+  {
+    id: 'search', icon: '🔍', title: 'Buscadores (Imágenes, Música, Web)',
+    endpoints: [
+      { path: '/search/pinterest', desc: 'Buscar imágenes en Pinterest', params: [{ name: 'q', req: true }, { name: 'limit', req: false, def: '10' }] },
+      { path: '/search/pinvid', desc: 'Buscar videos en Pinterest', params: [{ name: 'q', req: true }, { name: 'limit', req: false, def: '5' }] },
+      { path: '/search/gif', desc: 'Buscar GIFs animados', params: [{ name: 'q', req: true }, { name: 'limit', req: false, def: '5' }] },
+      { path: '/search/anime', desc: 'Buscar imágenes de Anime', params: [{ name: 'q', req: true }, { name: 'limit', req: false, def: '5' }] },
+      { path: '/search/google', desc: 'Búsqueda web en Google/DuckDuck', params: [{ name: 'q', req: true }, { name: 'limit', req: false, def: '5' }] },
+      { path: '/search/deezerfind', desc: 'Buscar canciones en Deezer', params: [{ name: 'q', req: true }, { name: 'limit', req: false, def: '10' }] }
+    ]
+  },
+  {
+    id: 'tools', icon: '🛠️', title: 'Herramientas Útiles',
+    endpoints: [
+      { path: '/tools/translate', desc: 'Traductor universal', params: [{ name: 'text', req: true }, { name: 'to', req: false, def: 'es' }] },
+      { path: '/tools/attp', desc: 'Crear sticker animado de texto', params: [{ name: 'text', req: true }] },
+      { path: '/tools/qr', desc: 'Generar código QR', params: [{ name: 'text', req: true }] },
+      { path: '/tools/screenshot', desc: 'Capturar pantalla de una Web', params: [{ name: 'url', req: true }] },
+      { path: '/tools/shorten', desc: 'Acortar URL larga', params: [{ name: 'url', req: true }] },
+      { path: '/tools/ttstalk', desc: 'Stalkear perfil de TikTok', params: [{ name: 'user', req: true }] }
+    ]
+  },
+  {
+    id: 'nsfw', icon: '🔞', title: 'NSFW (+18)',
+    endpoints: [
+      { path: '/nsfw/xnxx', desc: 'Buscar videos en XNXX', params: [{ name: 'q', req: true }, { name: 'limit', req: false, def: '10' }] },
+      { path: '/nsfw/xnxxdl', desc: 'Descargar de XNXX', params: [{ name: 'url', req: true }] },
+      { path: '/nsfw/ph', desc: 'Buscar en PornHub', params: [{ name: 'q', req: true }] },
+      { path: '/nsfw/phdl', desc: 'Descargar de PornHub (HLS URLs)', params: [{ name: 'url', req: true }] },
+      { path: '/nsfw/xvideos', desc: 'Buscar en XVideos', params: [{ name: 'q', req: true }] },
+      { path: '/nsfw/xvideosdl', desc: 'Descargar de XVideos', params: [{ name: 'url', req: true }] }
+    ]
+  }
+];
+
+// Cargar Key guardada
+document.addEventListener('DOMContentLoaded', () => {
+  const savedKey = localStorage.getItem('zenbot_key');
+  if (savedKey) document.getElementById('global-api-key').value = savedKey;
+  renderEndpoints();
+});
+
+function saveApiKey() {
+  const key = document.getElementById('global-api-key').value.trim();
+  localStorage.setItem('zenbot_key', key);
+  alert(key ? '✅ API Key guardada para las pruebas.' : '🗑️ API Key borrada.');
+}
+
+// Generador de Keys (Llama al backend)
+async function generateKey() {
+  const adminPass = document.getElementById('reg-admin').value.trim();
+  const name = document.getElementById('reg-name').value.trim();
+  const resBox = document.getElementById('reg-result');
+  
+  if (!adminPass || !name) return alert('Llena ambos campos.');
+  
+  resBox.style.display = 'block';
+  resBox.innerHTML = '<pre>Generando...</pre>';
+
+  try {
+    const res = await fetch(API_BASE + '/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ adminPass, name })
+    });
+    const data = await res.json();
+    
+    if (data.ok) {
+      resBox.innerHTML = `<pre style="color: var(--green);">✅ ¡Éxito!\n\nUsuario: ${data.name}\nTu API Key: <b style="color:white">${data.key}</b>\n\n(La key ha sido guardada automáticamente arriba)</pre>`;
+      document.getElementById('global-api-key').value = data.key;
+      saveApiKey();
+    } else {
+      resBox.innerHTML = `<pre style="color: var(--red);">❌ Error: ${data.error}</pre>`;
+    }
+  } catch (e) {
+    resBox.innerHTML = `<pre style="color: var(--red);">❌ Error de conexión.</pre>`;
+  }
+}
+
+// Renderizado dinámico de la API
+function renderEndpoints() {
+  const container = document.getElementById('endpoints-container');
+  let html = '';
+
+  apiDocs.forEach(section => {
+    html += `
+      <div class="section" id="${section.id}">
+        <div class="section-head">
+          <span class="section-icon">${section.icon}</span>
+          <span class="section-name">${section.title}</span>
+        </div>
+        <div class="ep-list">
+    `;
+
+    section.endpoints.forEach((ep, i) => {
+      const pgId = `pg-${section.id}-${i}`;
+      
+      // Chips de parámetros
+      let paramsHtml = '';
+      let inputsHtml = '';
+      
+      ep.params.forEach(p => {
+        paramsHtml += `<span class="param-chip"><span class="pname">${p.name}</span> <span class="${p.req ? 'req' : 'opt'}">${p.req ? 'requerido' : 'opcional'}</span></span>`;
+        inputsHtml += `
+          <div class="pg-input-wrapper">
+            <label>${p.name} ${p.req ? '*' : `(def: ${p.def})`}</label>
+            <input type="text" class="pg-input" data-param="${p.name}" placeholder="Escribe el ${p.name}..." />
+          </div>
+        `;
+      });
+
+      html += `
+        <div class="ep">
+          <div class="ep-head" onclick="togglePg('${pgId}')">
+            <span class="badge-method badge-get">GET</span>
+            <span class="ep-path">${ep.path}</span>
+            <span class="ep-desc">${ep.desc}</span>
+          </div>
+          <div class="ep-params">${paramsHtml}</div>
+          
+          <div class="playground" id="${pgId}">
+            <div class="pg-form">
+              ${inputsHtml}
+              <button class="pg-btn" onclick="testApi(this, '${ep.path}')">Probar Request 🚀</button>
+            </div>
+            <div class="pg-res">
+              <div class="pg-res-head">Respuesta JSON <span class="status"></span></div>
+              <pre class="pg-res-body"></pre>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    html += `</div></div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function togglePg(id) {
+  const el = document.getElementById(id);
+  el.style.display = el.style.display === 'block' ? 'none' : 'block';
+}
+
+async function testApi(btn, path) {
+  const pg = btn.closest('.playground');
+  const inputs = pg.querySelectorAll('.pg-input');
+  const resBox = pg.querySelector('.pg-res');
+  const resBody = pg.querySelector('.pg-res-body');
+  const statusSpan = pg.querySelector('.status');
+  
+  const apiKey = document.getElementById('global-api-key').value.trim();
+  if (!apiKey) {
+    alert("⚠️ Por favor, ingresa una API Key en la barra superior para probar los endpoints.");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  // Construir Query Params
+  const query = new URLSearchParams();
+  inputs.forEach(inp => {
+    if (inp.value.trim()) query.append(inp.dataset.param, inp.value.trim());
+  });
+
+  const fullUrl = `${API_BASE}${path}${query.toString() ? '?' + query.toString() : ''}`;
+
+  btn.disabled = true;
+  btn.textContent = 'Procesando...';
+  resBox.style.display = 'block';
+  resBody.className = 'pg-res-body';
+  resBody.textContent = 'Haciendo petición a la API...';
+  statusSpan.textContent = '';
+
+  try {
+    const res = await fetch(fullUrl, {
+      method: 'GET',
+      headers: { 'x-api-key': apiKey }
+    });
+    
+    const data = await res.json();
+    statusSpan.textContent = `(Status: ${res.status})`;
+    
+    if (res.ok && data.ok) {
+      resBody.textContent = JSON.stringify(data, null, 2);
+    } else {
+      resBody.className = 'pg-res-body error';
+      resBody.textContent = JSON.stringify(data, null, 2);
+    }
+  } catch (e) {
+    statusSpan.textContent = '(Error de red)';
+    resBody.className = 'pg-res-body error';
+    resBody.textContent = e.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Probar Request 🚀';
+  }
+}
+</script>
 </body>
 </html>
