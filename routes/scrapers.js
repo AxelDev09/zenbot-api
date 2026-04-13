@@ -16,7 +16,7 @@ import {
   spotidownTrack,
   deezerSearch, deezerTrack,
   ddownr
-} from '@soyaxell09/zenbot-scraper';
+} from '@axel-dev09/zen-dl';
 
 const r = Router();
 r.use(requireKey);

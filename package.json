@@ -8,6 +8,6 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "@soyaxell09/zenbot-scraper": "latest"
+    "@axel-dev09/zen-dl": "latest"
   }
 }
