@@ -16,6 +16,7 @@ const KEYS_FILE  = join(__dirname, 'keys.json');
 
 const app = express();
 app.use(express.json());
+app.use(express.static(join(__dirname, 'public')));
 
 function loadKeys() {
   if (!existsSync(KEYS_FILE)) return {};
